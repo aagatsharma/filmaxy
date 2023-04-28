@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import { BsFill0CircleFill } from "react-icons/bs";
 import { useGetGenresQuery } from "../services/TMDB";
+import genreIcons from "../assets/genres/";
 
 export default function Sidebar() {
-  const { data, isFetching } = useGetGenresQuery();
-  console.log(data);
+  const { data } = useGetGenresQuery();
   const categories = [
     { id: 1, name: "Popular" },
     { id: 2, name: "Top Rated" },
@@ -31,7 +31,11 @@ export default function Sidebar() {
                 className="flex items-center gap-3 cursor-pointer text-xl hover:bg-black/5 py-3 pl-4"
                 key={category.id}
               >
-                <BsFill0CircleFill />
+                <img
+                  src={genreIcons[category.name.toLowerCase()]}
+                  alt="Logo"
+                  className="h-10 w-10"
+                />
                 <h1>{category.name}</h1>
               </div>
             );
@@ -50,7 +54,11 @@ export default function Sidebar() {
               className="flex items-center gap-3 cursor-pointer text-xl hover:bg-black/5 py-3 pl-4"
               key={genre.id}
             >
-              <BsFill0CircleFill />
+              <img
+                src={genreIcons[genre.name.toLowerCase()]}
+                alt="Logo"
+                className="h-10 w-10"
+              />
               <h1>{genre.name}</h1>
             </div>
           );

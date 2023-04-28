@@ -1,7 +1,6 @@
 import { Rating } from "primereact/rating";
 
 const MovieList = ({ movies }) => {
-  console.log(movies);
   return (
     <div className="flex flex-wrap gap-3 justify-between">
       {movies?.results.map((movie, i) => (
