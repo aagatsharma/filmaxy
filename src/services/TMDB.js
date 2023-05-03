@@ -8,11 +8,27 @@ export const tmdbApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: "https://api.themoviedb.org/3" }),
   endpoints: (builder) => ({
     getGenres: builder.query({
-      query: () => `genre/movie/list?api_key=${tmdbApiKey}`,
+      query: ({ genreIdOrCategoryName, page }) =>
+        `genre/movie/list?api_key=${tmdbApiKey}`,
     }),
     // Get Movies by Popular
     getMovies: builder.query({
-      query: () => `movie/popular?page=${page}&api_key=${tmdbApiKey}`,
+      query: ({ genreIdOrCategoryName, page }) => {
+        // category name
+        if (
+          genreIdOrCategoryName &&
+          typeof genreIdOrCategoryName === "string"
+        ) {
+        }
+
+        // genre id
+        if (
+          genreIdOrCategoryName &&
+          typeof genreIdOrCategoryName === "number"
+        ) {
+        }
+        return `movie/popular?page=${page}&api_key=${tmdbApiKey}`;
+      },
     }),
   }),
 });

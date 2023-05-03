@@ -1,19 +1,24 @@
 import { Link } from "react-router-dom";
-import { BsFill0CircleFill } from "react-icons/bs";
 import { useGetGenresQuery } from "../services/TMDB";
 import genreIcons from "../assets/genres/";
+import { useDispatch, useSelector } from "react-redux";
+import { selectGenreOrCategory } from "../features/genreOrCategory";
 
 export default function Sidebar() {
-  const { data } = useGetGenresQuery();
+  const { genreIdOrCategoryName } = useSelector(
+    (state) => state.genreOrCategory,
+  );
+  const { data, isFetching } = useGetGenresQuery();
   const categories = [
-    { id: 1, name: "Popular" },
-    { id: 2, name: "Top Rated" },
-    { id: 3, name: "Upcoming" },
+    { label: "Popular", value: "popular" },
+    { label: "Top Rated", value: "top_rated" },
+    { label: "Upcoming", value: "upcoming" },
   ];
+  const dispatch = useDispatch();
   return (
     <div className="flex flex-col border-r-[1px] bg-white h-[100vh] fixed overflow-y-scroll z-200">
       <Link path="/">
-        <h1 className="text-5xl font-bold text-cyan-600 p-7 border-b-[1px]">
+        <h1 className="text-5xl font-bold text-cyan-600 p-7 border-b-[1px] ">
           FILMAXY
         </h1>
       </Link>
@@ -29,14 +34,15 @@ export default function Sidebar() {
             return (
               <div
                 className="flex items-center gap-3 cursor-pointer text-xl hover:bg-black/5 py-3 pl-4"
-                key={category.id}
+                key={category.value}
+                onClick={() => dispatch(selectGenreOrCategory(category.value))}
               >
                 <img
-                  src={genreIcons[category.name.toLowerCase()]}
+                  src={genreIcons[category.label.toLowerCase()]}
                   alt="Logo"
                   className="h-10 w-10"
                 />
-                <h1>{category.name}</h1>
+                <h1>{category.label}</h1>
               </div>
             );
           })}
@@ -53,6 +59,7 @@ export default function Sidebar() {
             <div
               className="flex items-center gap-3 cursor-pointer text-xl hover:bg-black/5 py-3 pl-4"
               key={genre.id}
+              onClick={() => dispatch(selectGenreOrCategory(genre.id))}
             >
               <img
                 src={genreIcons[genre.name.toLowerCase()]}

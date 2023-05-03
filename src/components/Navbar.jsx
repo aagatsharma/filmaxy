@@ -8,7 +8,7 @@ export default function Navbar() {
       <div className="flex-grow absolute w-full left-auto">
         <div className="bg-[#1976d3] shadow-lg text-white">
           <div className="h-20 mx-5 flex justify-between items-center ml-[260px] ">
-            <MdBrightness4 className="h-[30px] w-[30px]" />
+            <MdBrightness4 className="h-[30px] w-[30px] cursor-pointer" />
 
             {/* Search */}
             <div className="flex border-b-2 py-1 gap-2 hover:border-red-500 ">
@@ -24,6 +24,7 @@ export default function Navbar() {
           </div>
         </div>
       </div>
+      {/* Sidebar */}
       <div className="relative z-50 overflow-y-auto flex">
         <Sidebar />
       </div>
